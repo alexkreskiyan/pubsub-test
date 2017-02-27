@@ -21,7 +21,7 @@ namespace PubSub
             }
         }
 
-        private static IClient GetClient(string[] args)
+        private static Client GetClient(string[] args)
         {
             if (args.Length != 1)
                 return null;

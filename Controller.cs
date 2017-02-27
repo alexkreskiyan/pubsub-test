@@ -3,11 +3,13 @@ using StackExchange.Redis;
 
 namespace PubSub
 {
-    public class Controller : IClient
+    public class Controller : Client
     {
-        public void Run(IConnectionMultiplexer redis)
+        protected override void HandleRun(IConnectionMultiplexer redis)
         {
-            Console.WriteLine("Running Controller");
+            var subscriber = redis.GetSubscriber();
+            for (;;)
+                subscriber.Publish("test", Console.ReadLine());
         }
     }
 }

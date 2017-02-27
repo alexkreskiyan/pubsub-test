@@ -3,11 +3,12 @@ using StackExchange.Redis;
 
 namespace PubSub
 {
-    public class Listener : IClient
+    public class Listener : Client
     {
-        public void Run(IConnectionMultiplexer redis)
+        protected override void HandleRun(IConnectionMultiplexer redis)
         {
-            Console.WriteLine("Running Listener");
+            var subscriber = redis.GetSubscriber();
+            subscriber.Subscribe("test", (channel, message) => Console.WriteLine(message));
         }
     }
 }
